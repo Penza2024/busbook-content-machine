@@ -55,7 +55,7 @@ export default function MultiplierPage() {
       hook: variant.hook,
       caption: variant.caption,
       cta: variant.cta,
-      format: variant.format as "reel" | "carousel" | "short" | "static" | "story" | "post",
+      format: variant.format,
       hashtags: variant.hashtags,
       thumbnail_idea: variant.thumbnail_idea,
       status: "draft",

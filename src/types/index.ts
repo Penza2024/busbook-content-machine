@@ -1,3 +1,67 @@
+// ─── Projects ──────────────────────────────────────
+export interface Project {
+  id: string
+  user_id: string
+  name: string
+  description: string
+  slug: string
+  brand_voice: string
+  brand_tone: string
+  target_audience: string
+  color_palette: string[]
+  usps: string
+  competitor_mentions: string
+  content_examples: string
+  launch_phase: "pre-launch" | "launch" | "growth"
+  pillars: string[]
+  platforms: PlatformConfig[]
+  is_default: boolean
+  created_at: string
+  updated_at: string
+}
+
+// ─── Series / Campaigns ────────────────────────────
+export interface Series {
+  id: string
+  user_id: string
+  project_id: string
+  title: string
+  description: string
+  goal: string
+  total_parts: number
+  timeline: string
+  status: "planning" | "active" | "completed" | "archived"
+  created_at: string
+  updated_at: string
+}
+
+export interface SeriesItem {
+  id: string
+  user_id: string
+  series_id: string
+  idea_id: string | null
+  part_number: number
+  title: string
+  description: string
+  status: "planned" | "in-progress" | "done"
+  created_at: string
+  updated_at: string
+}
+
+// ─── Custom Content Types ──────────────────────────
+export interface ContentType {
+  id: string
+  user_id: string | null
+  project_id: string | null
+  name: string
+  slug: string
+  icon: string
+  description: string
+  is_builtin: boolean
+  created_at: string
+}
+
+// ─── Brand / Settings (legacy, kept for backwards compat) ──
 export interface BrandSettings {
   id: string
   user_id: string
@@ -29,11 +93,14 @@ export interface PlatformConfig {
   }
 }
 
+// ─── Content Ideas ─────────────────────────────────
 export type IdeaStatus = "draft" | "ready" | "in-production" | "published" | "archived"
 
 export interface ContentIdea {
   id: string
   user_id: string
+  project_id: string | null
+  series_item_id: string | null
   title: string
   description: string
   core_screenshots: string[]
@@ -45,16 +112,18 @@ export interface ContentIdea {
   updated_at: string
 }
 
+// ─── Repurposed Posts ──────────────────────────────
 export type PostStatus = "draft" | "scheduled" | "published" | "failed"
 
 export interface RepurposedPost {
   id: string
   idea_id: string
+  project_id: string | null
   platform: string
   hook: string
   caption: string
   cta: string
-  format: "reel" | "carousel" | "short" | "static" | "story" | "post"
+  format: string
   hashtags: string[]
   thumbnail_idea: string
   status: PostStatus
@@ -62,6 +131,7 @@ export interface RepurposedPost {
   updated_at: string
 }
 
+// ─── Scheduled Posts ───────────────────────────────
 export interface ScheduledPost {
   id: string
   repurposed_post_id: string
@@ -72,6 +142,7 @@ export interface ScheduledPost {
   updated_at: string
 }
 
+// ─── Performance Logs ──────────────────────────────
 export interface PerformanceLog {
   id: string
   scheduled_post_id: string
@@ -83,6 +154,7 @@ export interface PerformanceLog {
   logged_at: string
 }
 
+// ─── Dashboard Stats ──────────────────────────────
 export interface DashboardStats {
   totalIdeas: number
   totalScheduled: number
@@ -93,11 +165,20 @@ export interface DashboardStats {
   platformBreakdown: { platform: string; count: number }[]
 }
 
+// ─── AI Generated Content ─────────────────────────
 export interface GeneratedContent {
   hook: string
   caption: string
   cta: string
   hashtags: string[]
   thumbnail_idea: string
-  format: RepurposedPost["format"]
+  format: string
+}
+
+// ─── Series Generation ────────────────────────────
+export interface AISeriesSuggestion {
+  part_number: number
+  title: string
+  description: string
+  hook: string
 }

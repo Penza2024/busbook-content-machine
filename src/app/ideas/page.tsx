@@ -8,11 +8,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useIdeas } from "@/hooks/use-ideas"
-import type { IdeaStatus } from "@/types"
-import { Plus, Lightbulb, Trash2, Image as ImageIcon, Search, Loader2, X } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useIdeas } from "@/hooks/use-ideas"
+import { useProjects } from "@/hooks/use-projects"
+import { useSeries } from "@/hooks/use-series"
+import type { IdeaStatus } from "@/types"
+import { Plus, Lightbulb, Trash2, Image as ImageIcon, Search, Loader2, X, Layers } from "lucide-react"
 import { formatDate } from "@/lib/utils"
 
 const pillars = ["problem-awareness", "solution-demo", "social-proof", "urgency", "educational", "behind-the-scenes"]
@@ -23,12 +24,20 @@ const statusBadgeVariant: Record<string, "default" | "secondary" | "outline" | "
 }
 
 export default function IdeasPage() {
-  const { ideas, loading, addIdea, updateIdea, deleteIdea, uploadScreenshot, removeScreenshot } = useIdeas()
+  const { projects, defaultProject } = useProjects()
+  const [activeProjectId, setActiveProjectId] = useState(
+    typeof window !== "undefined" ? localStorage.getItem("activeProjectId") ?? "" : ""
+  )
+  const projectId = activeProjectId || defaultProject?.id
+  const { ideas, loading, addIdea, updateIdea, deleteIdea, uploadScreenshot, removeScreenshot } = useIdeas(projectId)
+  const { seriesList } = useSeries(projectId)
+
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const [filterPillar, setFilterPillar] = useState("all")
   const [filterStatus, setFilterStatus] = useState("all")
-  const [form, setForm] = useState({ title: "", description: "", pillar: "solution-demo", tags: "", status: "draft" })
+  const [filterSeries, setFilterSeries] = useState("all")
+  const [form, setForm] = useState({ title: "", description: "", pillar: "solution-demo", tags: "", status: "draft", series_item_id: "" })
   const [adding, setAdding] = useState(false)
   const [uploadingId, setUploadingId] = useState<string | null>(null)
 
@@ -36,8 +45,15 @@ export default function IdeasPage() {
     if (!form.title.trim()) return
     setAdding(true)
     const tags = form.tags.split(",").map((t) => t.trim()).filter(Boolean)
-    await addIdea({ ...form, tags })
-    setForm({ title: "", description: "", pillar: "solution-demo", tags: "", status: "draft" })
+    await addIdea({
+      title: form.title,
+      description: form.description,
+      pillar: form.pillar,
+      tags,
+      status: form.status,
+      series_item_id: form.series_item_id || undefined,
+    })
+    setForm({ title: "", description: "", pillar: "solution-demo", tags: "", status: "draft", series_item_id: "" })
     setOpen(false)
     setAdding(false)
   }
@@ -51,11 +67,14 @@ export default function IdeasPage() {
     e.target.value = ""
   }
 
+  const seriesFilterOptions = seriesList.map((s) => ({ id: s.id, label: s.title }))
+
   const filtered = ideas.filter((idea) => {
     const matchesSearch = idea.title.toLowerCase().includes(search.toLowerCase()) || idea.description.toLowerCase().includes(search.toLowerCase())
     const matchesPillar = filterPillar === "all" || idea.pillar === filterPillar
     const matchesStatus = filterStatus === "all" || idea.status === filterStatus
-    return matchesSearch && matchesPillar && matchesStatus
+    const matchesSeries = filterSeries === "all" || idea.series_item_id === filterSeries
+    return matchesSearch && matchesPillar && matchesStatus && matchesSeries
   })
 
   if (loading) {
@@ -130,14 +149,14 @@ export default function IdeasPage() {
           <Input placeholder="Search ideas..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
         </div>
         <Select value={filterPillar} onValueChange={setFilterPillar}>
-          <SelectTrigger className="w-[180px]"><SelectValue placeholder="All pillars" /></SelectTrigger>
+          <SelectTrigger className="w-[150px]"><SelectValue placeholder="All pillars" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Pillars</SelectItem>
             {pillars.map((p) => <SelectItem key={p} value={p}>{p.replace("-", " ")}</SelectItem>)}
           </SelectContent>
         </Select>
         <Select value={filterStatus} onValueChange={setFilterStatus}>
-          <SelectTrigger className="w-[160px]"><SelectValue placeholder="All statuses" /></SelectTrigger>
+          <SelectTrigger className="w-[140px]"><SelectValue placeholder="All statuses" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Statuses</SelectItem>
             {statuses.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
@@ -161,6 +180,11 @@ export default function IdeasPage() {
                   <div className="flex-1 min-w-0">
                     <CardTitle className="text-base truncate">{idea.title}</CardTitle>
                     <p className="text-xs text-muted-foreground mt-1">{formatDate(idea.created_at)}</p>
+                    {idea.series_item_id && (
+                      <p className="text-xs text-primary mt-0.5 flex items-center gap-1">
+                        <Layers className="h-3 w-3" /> Series episode
+                      </p>
+                    )}
                   </div>
                   <div className="flex gap-1 shrink-0 ml-2">
                     <Select value={idea.status} onValueChange={(v) => updateIdea(idea.id, { status: v as IdeaStatus })}>
@@ -178,7 +202,6 @@ export default function IdeasPage() {
               <CardContent className="flex-1 flex flex-col gap-3">
                 <p className="text-sm text-muted-foreground line-clamp-2">{idea.description || "No description"}</p>
 
-                {/* Screenshots */}
                 {idea.core_screenshots && idea.core_screenshots.length > 0 && (
                   <div className="flex gap-2 flex-wrap">
                     {idea.core_screenshots.map((url, i) => (

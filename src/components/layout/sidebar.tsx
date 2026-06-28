@@ -4,9 +4,17 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/hooks/use-user"
+import { useProjects } from "@/hooks/use-projects"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {
   LayoutDashboard,
   Lightbulb,
@@ -14,17 +22,19 @@ import {
   Calendar,
   BarChart3,
   Settings,
-  Bus,
+  Layers,
   LogOut,
   Sun,
   Moon,
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import { createClient } from "@/lib/supabase/client"
+import { useState } from "react"
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/ideas", label: "Ideas", icon: Lightbulb },
+  { href: "/series", label: "Series", icon: Layers },
   { href: "/multiplier", label: "Multiplier", icon: Repeat2 },
   { href: "/calendar", label: "Calendar", icon: Calendar },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
@@ -34,7 +44,16 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname()
   const { user } = useUser()
+  const { projects, defaultProject } = useProjects()
   const { setTheme, resolvedTheme } = useTheme()
+  const [activeProjectId, setActiveProjectId] = useState<string>(
+    typeof window !== "undefined" ? localStorage.getItem("activeProjectId") ?? defaultProject?.id ?? "" : ""
+  )
+
+  function handleProjectChange(id: string) {
+    setActiveProjectId(id)
+    localStorage.setItem("activeProjectId", id)
+  }
 
   async function handleSignOut() {
     const supabase = createClient()
@@ -44,9 +63,23 @@ export function Sidebar() {
 
   return (
     <aside className="hidden md:flex md:w-60 flex-col border-r bg-background">
-      <div className="p-4 flex items-center gap-2">
-        <Bus className="h-6 w-6 text-primary" />
-        <span className="font-bold text-lg">BusBook</span>
+      <div className="p-4 space-y-3">
+        <Link href="/dashboard" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <div className="h-7 w-7 rounded bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">BC</div>
+          <span className="font-bold text-base">Content OS</span>
+        </Link>
+        {projects.length > 0 && (
+          <Select value={activeProjectId || defaultProject?.id} onValueChange={handleProjectChange}>
+            <SelectTrigger className="h-8 text-xs">
+              <SelectValue placeholder="Select project" />
+            </SelectTrigger>
+            <SelectContent>
+              {projects.map((p) => (
+                <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
       </div>
       <Separator />
       <nav className="flex-1 p-3 space-y-1">

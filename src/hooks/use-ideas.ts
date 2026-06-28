@@ -12,25 +12,25 @@ export type IdeaFormData = {
   pillar: string
   tags: string[]
   status: string
+  series_item_id?: string
 }
 
 const queryKeys = {
-  ideas: ["ideas"] as const,
+  ideas: (projectId?: string) => ["ideas", projectId] as const,
 }
 
-export function useIdeas() {
+export function useIdeas(projectId?: string) {
   const { user } = useUser()
   const queryClient = useQueryClient()
   const supabase = createClient()
 
   const { data: ideas = [], isLoading: loading } = useQuery({
-    queryKey: queryKeys.ideas,
+    queryKey: queryKeys.ideas(projectId),
     enabled: !!user,
     queryFn: async () => {
-      const { data } = await supabase
-        .from("content_ideas")
-        .select("*")
-        .order("created_at", { ascending: false })
+      let query = supabase.from("content_ideas").select("*").order("created_at", { ascending: false })
+      if (projectId) query = query.eq("project_id", projectId)
+      const { data } = await query
       return (data ?? []) as ContentIdea[]
     },
   })
@@ -38,23 +38,22 @@ export function useIdeas() {
   const addIdeaMutation = useMutation({
     mutationFn: async (formData: IdeaFormData) => {
       if (!user) return null
-      const { data, error } = await supabase
-        .from("content_ideas")
-        .insert({
-          title: formData.title,
-          description: formData.description,
-          pillar: formData.pillar,
-          tags: formData.tags,
-          status: formData.status || "draft",
-          core_screenshots: [],
-        })
-        .select()
-        .maybeSingle()
+      const insert: any = {
+        title: formData.title,
+        description: formData.description,
+        pillar: formData.pillar,
+        tags: formData.tags,
+        status: formData.status || "draft",
+        core_screenshots: [],
+        project_id: projectId || null,
+      }
+      if (formData.series_item_id) insert.series_item_id = formData.series_item_id
+      const { data, error } = await supabase.from("content_ideas").insert(insert).select().maybeSingle()
       if (error) throw error
       return data as ContentIdea
     },
     onSuccess: (data, formData) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.ideas })
+      queryClient.invalidateQueries({ queryKey: queryKeys.ideas(projectId) })
       queryClient.invalidateQueries({ queryKey: ["dashboard"] })
       toast({ title: "Idea created", description: `"${formData.title}" added to your vault.` })
     },
@@ -69,7 +68,7 @@ export function useIdeas() {
       if (error) throw error
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.ideas })
+      queryClient.invalidateQueries({ queryKey: queryKeys.ideas(projectId) })
       queryClient.invalidateQueries({ queryKey: ["dashboard"] })
     },
     onError: (err: Error) => {
@@ -83,7 +82,7 @@ export function useIdeas() {
       if (error) throw error
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.ideas })
+      queryClient.invalidateQueries({ queryKey: queryKeys.ideas(projectId) })
       queryClient.invalidateQueries({ queryKey: ["dashboard"] })
       toast({ title: "Idea deleted" })
     },
