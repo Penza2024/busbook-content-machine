@@ -44,6 +44,11 @@ export interface SeriesItem {
   title: string
   description: string
   status: "planned" | "in-progress" | "done"
+  objectives: string[]
+  achievements: string[]
+  key_learnings: string
+  scheduled_date: string | null
+  due_date: string | null
   created_at: string
   updated_at: string
 }
@@ -152,6 +157,12 @@ export interface PerformanceLog {
   leads: number
   notes: string
   logged_at: string
+}
+
+export interface PerformanceLogWithPost extends PerformanceLog {
+  scheduled_post?: ScheduledPost & {
+    repurposed_post?: RepurposedPost
+  }
 }
 
 // ─── Dashboard Stats ──────────────────────────────

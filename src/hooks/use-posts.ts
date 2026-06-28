@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { createClient } from "@/lib/supabase/client"
 import { useUser } from "@/hooks/use-user"
 import { toast } from "@/hooks/use-toast"
-import type { RepurposedPost, ScheduledPost, PerformanceLog } from "@/types"
+import type { RepurposedPost, ScheduledPost, PerformanceLog, PerformanceLogWithPost } from "@/types"
 
 const queryKeys = {
   repurposedPosts: (ideaId?: string) => ["repurposed_posts", ideaId] as const,
@@ -161,9 +161,9 @@ export function usePerformanceLogs() {
     queryFn: async () => {
       const { data } = await supabase
         .from("performance_logs")
-        .select("*, scheduled_post:scheduled_posts(*)")
+        .select("*, scheduled_post:scheduled_posts(*, repurposed_post:repurposed_posts(*))")
         .order("logged_at", { ascending: false })
-      return (data ?? []) as (PerformanceLog & { scheduled_post?: ScheduledPost })[]
+      return (data ?? []) as PerformanceLogWithPost[]
     },
   })
 

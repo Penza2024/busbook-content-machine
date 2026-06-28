@@ -11,10 +11,12 @@ export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState("")
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
+    setError("")
     try {
       const { createClient } = await import("@/lib/supabase/client")
       const supabase = createClient()
@@ -28,7 +30,8 @@ export default function LoginPage() {
       if (error) throw error
       setSent(true)
     } catch (err) {
-      console.error(err)
+      const message = err instanceof Error ? err.message : "Failed to send magic link"
+      setError(message)
     } finally {
       setLoading(false)
     }
@@ -55,6 +58,9 @@ export default function LoginPage() {
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
+              {error && (
+                <p className="text-sm text-destructive text-center">{error}</p>
+              )}
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Sending..." : "Send Magic Link"}
               </Button>

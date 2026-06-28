@@ -138,12 +138,17 @@ export function useSeriesItems(seriesId: string) {
     },
   })
 
-  const addBulkItems = async (parts: { part_number: number; title: string; description: string }[]) => {
+  const addBulkItems = async (parts: { part_number: number; title: string; description: string; objectives?: string[]; achievements?: string[]; key_learnings?: string; scheduled_date?: string; due_date?: string }[]) => {
     const inserts = parts.map((p) => ({
       series_id: seriesId,
       part_number: p.part_number,
       title: p.title,
       description: p.description,
+      objectives: p.objectives ?? [],
+      achievements: p.achievements ?? [],
+      key_learnings: p.key_learnings ?? "",
+      scheduled_date: p.scheduled_date ?? null,
+      due_date: p.due_date ?? null,
     }))
     const { error } = await supabase.from("series_items").insert(inserts)
     if (error) {

@@ -10,9 +10,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { DragDropContext, Droppable, Draggable, type DropResult } from "@hello-pangea/dnd"
 import { useScheduledPosts, useRepurposedPosts } from "@/hooks/use-posts"
 import { Skeleton } from "@/components/ui/skeleton"
-import { formatDate, generateId } from "@/lib/utils"
+import { formatDate } from "@/lib/utils"
 import { exportCSV, exportICS, downloadFile } from "@/lib/calendar-export"
-import { Plus, ChevronLeft, ChevronRight, Download, Loader2, CalendarDays } from "lucide-react"
+import { useUser } from "@/hooks/use-user"
+import { createClient } from "@/lib/supabase/client"
+import { useQuery } from "@tanstack/react-query"
+import { Plus, ChevronLeft, ChevronRight, Download, Loader2, CalendarDays, Layers, Target } from "lucide-react"
+import type { SeriesItem } from "@/types"
 
 const platformColors: Record<string, string> = {
   tiktok: "border-l-black",
@@ -32,6 +36,8 @@ function getMonthDays(year: number, month: number) {
 }
 
 export default function CalendarPage() {
+  const { user } = useUser()
+  const supabase = createClient()
   const now = new Date()
   const [year, setYear] = useState(now.getFullYear())
   const [month, setMonth] = useState(now.getMonth())
@@ -41,6 +47,23 @@ export default function CalendarPage() {
   const [selectedPostId, setSelectedPostId] = useState("")
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
   const [notes, setNotes] = useState("")
+
+  const { data: scheduledEpisodes = [] } = useQuery({
+    queryKey: ["series_items", "scheduled", year, month],
+    enabled: !!user,
+    queryFn: async () => {
+      const startOfMonth = new Date(year, month, 1).toISOString()
+      const endOfMonth = new Date(year, month + 1, 0, 23, 59, 59).toISOString()
+      const { data } = await supabase
+        .from("series_items")
+        .select("*, series:series(title)")
+        .not("scheduled_date", "is", null)
+        .gte("scheduled_date", startOfMonth)
+        .lte("scheduled_date", endOfMonth)
+        .order("scheduled_date", { ascending: true })
+      return (data ?? []) as (SeriesItem & { series: { title: string } })[]
+    },
+  })
 
   const monthDays = getMonthDays(year, month)
   const monthName = new Date(year, month).toLocaleString("default", { month: "long" })
@@ -52,6 +75,15 @@ export default function CalendarPage() {
       return scheduled.filter((s) => s.scheduled_date?.startsWith(dateStr))
     },
     [scheduled, year, month]
+  )
+
+  const getEpisodesForDay = useCallback(
+    (day: number | null) => {
+      if (!day) return []
+      const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+      return scheduledEpisodes.filter((e) => e.scheduled_date?.startsWith(dateStr))
+    },
+    [scheduledEpisodes, year, month]
   )
 
   function onDragEnd(result: DropResult) {
@@ -111,7 +143,7 @@ export default function CalendarPage() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Content Calendar</h1>
-          <p className="text-muted-foreground">Drag posts to reschedule</p>
+          <p className="text-muted-foreground">Drag posts to reschedule. Episodes from series appear with a purple border.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={handleExportCSV}>
@@ -174,6 +206,26 @@ export default function CalendarPage() {
                               </Dialog>
                             )}
                           </div>
+                          {getEpisodesForDay(day).map((ep, idx) => (
+                            <div
+                              key={`ep-${ep.id}`}
+                              className="text-[11px] p-1.5 mb-1 rounded border-l-2 border-l-purple-400 bg-purple-50 dark:bg-purple-950/30 shadow-sm"
+                            >
+                              <div className="flex items-center gap-1">
+                                <Layers className="h-3 w-3 text-purple-500 shrink-0" />
+                                <p className="truncate font-medium text-purple-700 dark:text-purple-300">{ep.title}</p>
+                              </div>
+                              <p className="truncate text-purple-500/70 dark:text-purple-400/70">
+                                {ep.series?.title ?? "Episode"} #{ep.part_number}
+                              </p>
+                              {ep.objectives && ep.objectives.length > 0 && (
+                                <p className="truncate text-purple-500/50 dark:text-purple-400/50 mt-0.5">
+                                  <Target className="h-2.5 w-2.5 inline mr-0.5" />
+                                  {ep.objectives.length} objective{ep.objectives.length > 1 ? "s" : ""}
+                                </p>
+                              )}
+                            </div>
+                          ))}
                           {getPostsForDay(day).map((post, idx) => (
                             <Draggable key={post.id} draggableId={post.id} index={idx}>
                               {(provided, snapshot) => (
@@ -205,36 +257,62 @@ export default function CalendarPage() {
       {/* Upcoming list */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>All Scheduled Posts ({scheduled.length})</CardTitle>
+          <CardTitle>Scheduled Items ({scheduled.length + scheduledEpisodes.length})</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          {scheduled.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-4">No scheduled posts. Drag from ideas or click + on a day.</p>
+          {scheduled.length === 0 && scheduledEpisodes.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-4">Nothing scheduled yet.</p>
           ) : (
-            scheduled.map((post) => (
-              <div key={post.id} className="flex items-center justify-between py-2 border-b last:border-0">
-                <div className="min-w-0 flex-1">
-                  <p className="font-medium truncate">{post.repurposed_post?.hook ?? "Untitled Post"}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatDate(post.scheduled_date)} · {post.repurposed_post?.platform ?? "Unknown"}
-                  </p>
+            <>
+              {scheduledEpisodes.map((ep) => (
+                <div key={ep.id} className="flex items-center justify-between py-2 border-b last:border-0 border-l-2 border-l-purple-400 pl-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium truncate flex items-center gap-1.5">
+                      <Layers className="h-4 w-4 text-purple-500 shrink-0" />
+                      {ep.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground flex items-center gap-2">
+                      <span>{formatDate(ep.scheduled_date!)}</span>
+                      <span className="text-purple-500">{ep.series?.title} #{ep.part_number}</span>
+                      {ep.objectives && ep.objectives.length > 0 && (
+                        <span>{ep.objectives.length} objective{ep.objectives.length > 1 ? "s" : ""}</span>
+                      )}
+                    </p>
+                  </div>
+                  <Badge variant="outline" className={`shrink-0 ml-2 ${
+                    ep.status === "done" ? "border-green-200 text-green-600" :
+                    ep.status === "in-progress" ? "border-blue-200 text-blue-600" :
+                    "border-gray-200 text-gray-500"
+                  }`}>
+                    {ep.status}
+                  </Badge>
                 </div>
-                <div className="flex items-center gap-2 shrink-0 ml-2">
-                  <Select value={post.status} onValueChange={(v) => updateSchedule(post.id, { status: v as "draft" | "scheduled" | "published" | "failed" })}>
-                    <SelectTrigger className="h-7 w-24 text-xs"><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="scheduled">Scheduled</SelectItem>
-                      <SelectItem value="published">Published</SelectItem>
-                      <SelectItem value="draft">Draft</SelectItem>
-                      <SelectItem value="failed">Failed</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => deleteSchedule(post.id)}>
-                    Remove
-                  </Button>
+              ))}
+              {scheduled.map((post) => (
+                <div key={post.id} className="flex items-center justify-between py-2 border-b last:border-0">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium truncate">{post.repurposed_post?.hook ?? "Untitled Post"}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatDate(post.scheduled_date)} · {post.repurposed_post?.platform ?? "Unknown"}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0 ml-2">
+                    <Select value={post.status} onValueChange={(v) => updateSchedule(post.id, { status: v as "draft" | "scheduled" | "published" | "failed" })}>
+                      <SelectTrigger className="h-7 w-24 text-xs"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="scheduled">Scheduled</SelectItem>
+                        <SelectItem value="published">Published</SelectItem>
+                        <SelectItem value="draft">Draft</SelectItem>
+                        <SelectItem value="failed">Failed</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => deleteSchedule(post.id)}>
+                      Remove
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </>
           )}
         </CardContent>
       </Card>

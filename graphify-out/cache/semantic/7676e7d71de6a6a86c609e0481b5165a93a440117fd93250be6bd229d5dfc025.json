@@ -1,0 +1,1 @@
+{"nodes": [{"id": "supabase_client", "label": "Supabase Browser Client", "file_type": "code", "source_file": "src/lib/supabase/client.ts"}], "edges": [], "hyperedges": []}

@@ -1,0 +1,332 @@
+{
+  "/Users/mapalopenza/busbook-content-machine/postcss.config.mjs": {
+    "mtime": 1782628856.4267302,
+    "ast_hash": "c56b5f3c12f777a86e2513f45daab56a",
+    "semantic_hash": "c56b5f3c12f777a86e2513f45daab56a"
+  },
+  "/Users/mapalopenza/busbook-content-machine/tailwind.config.ts": {
+    "mtime": 1782628852.6680374,
+    "ast_hash": "ca442d391aa444f1c8a54b292df97c78",
+    "semantic_hash": "ca442d391aa444f1c8a54b292df97c78"
+  },
+  "/Users/mapalopenza/busbook-content-machine/package.json": {
+    "mtime": 1782638509.2327652,
+    "ast_hash": "29102c80b5a6db3d74c8d5fe6218e9b9",
+    "semantic_hash": "29102c80b5a6db3d74c8d5fe6218e9b9"
+  },
+  "/Users/mapalopenza/busbook-content-machine/tsconfig.json": {
+    "mtime": 1782629679.0519075,
+    "ast_hash": "c94de116e78a07f363ee396ed20a60ba",
+    "semantic_hash": "c94de116e78a07f363ee396ed20a60ba"
+  },
+  "/Users/mapalopenza/busbook-content-machine/eslint.config.mjs": {
+    "mtime": 1782628724.9006095,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "/Users/mapalopenza/busbook-content-machine/next.config.ts": {
+    "mtime": 1782640863.4468477,
+    "ast_hash": "d5c14f77f9d5bc61f0b0443e7509dbbc",
+    "semantic_hash": "d5c14f77f9d5bc61f0b0443e7509dbbc"
+  },
+  "/Users/mapalopenza/busbook-content-machine/supabase/migrations/002_enhanced_settings.sql": {
+    "mtime": 1782637443.921395,
+    "ast_hash": "e5602f81c1ca44a38894cbaacabfdfba",
+    "semantic_hash": "e5602f81c1ca44a38894cbaacabfdfba"
+  },
+  "/Users/mapalopenza/busbook-content-machine/supabase/migrations/003_projects_series_custom_types.sql": {
+    "mtime": 1782639577.2040536,
+    "ast_hash": "bf1dfb2b3ef5d051612fa7212bd8b273",
+    "semantic_hash": "bf1dfb2b3ef5d051612fa7212bd8b273"
+  },
+  "/Users/mapalopenza/busbook-content-machine/supabase/migrations/001_initial_schema.sql": {
+    "mtime": 1782628918.7397377,
+    "ast_hash": "a425e00fa83726dbf73c5b5ac21e8966",
+    "semantic_hash": "a425e00fa83726dbf73c5b5ac21e8966"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/middleware.ts": {
+    "mtime": 1782629120.2690222,
+    "ast_hash": "170243db95ebf463d447113a910bc996",
+    "semantic_hash": "170243db95ebf463d447113a910bc996"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/types/index.ts": {
+    "mtime": 1782639594.0937998,
+    "ast_hash": "fd07d44530dbdddd050781b5fd28a3f0",
+    "semantic_hash": "fd07d44530dbdddd050781b5fd28a3f0"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/layout.tsx": {
+    "mtime": 1782629008.0617151,
+    "ast_hash": "d2ba9707fa93ca844b2fc22c748a8d9a",
+    "semantic_hash": "d2ba9707fa93ca844b2fc22c748a8d9a"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/page.tsx": {
+    "mtime": 1782653800.7066321,
+    "ast_hash": "edd152de286bd9d36c23c0cab99eba88",
+    "semantic_hash": "edd152de286bd9d36c23c0cab99eba88"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/series/page.tsx": {
+    "mtime": 1782639699.9387658,
+    "ast_hash": "de85efbb09445a0b85607a21a3a00b80",
+    "semantic_hash": "de85efbb09445a0b85607a21a3a00b80"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/multiplier/page.tsx": {
+    "mtime": 1782639839.7345786,
+    "ast_hash": "b2d9d88d5c747a221a48547d12080ab6",
+    "semantic_hash": "b2d9d88d5c747a221a48547d12080ab6"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/settings/page.tsx": {
+    "mtime": 1782637488.8744144,
+    "ast_hash": "7413d563d96a938f0db652d63cdabd12",
+    "semantic_hash": "7413d563d96a938f0db652d63cdabd12"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/calendar/page.tsx": {
+    "mtime": 1782637351.8566654,
+    "ast_hash": "2e77608b858d5e93b391185a2d22b5a5",
+    "semantic_hash": "2e77608b858d5e93b391185a2d22b5a5"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/auth/callback/route.ts": {
+    "mtime": 1782653946.4381862,
+    "ast_hash": "852f11ea3fe8505db4867d18110148aa",
+    "semantic_hash": "852f11ea3fe8505db4867d18110148aa"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/dashboard/page.tsx": {
+    "mtime": 1782637365.7524517,
+    "ast_hash": "a1ddf54c3ba6c0e4c211b770dc81fee0",
+    "semantic_hash": "a1ddf54c3ba6c0e4c211b770dc81fee0"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/api/auth/signout/route.ts": {
+    "mtime": 1782634319.4516459,
+    "ast_hash": "117ef2afeb8870d2be91019b4990cc9f",
+    "semantic_hash": "117ef2afeb8870d2be91019b4990cc9f"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/api/generate/route.ts": {
+    "mtime": 1782639824.534619,
+    "ast_hash": "fd760c0c00918264fe2acc823bf1a9c4",
+    "semantic_hash": "fd760c0c00918264fe2acc823bf1a9c4"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/ideas/page.tsx": {
+    "mtime": 1782639801.8279142,
+    "ast_hash": "d502c7b9d22e8e986b36555ab20dcb67",
+    "semantic_hash": "d502c7b9d22e8e986b36555ab20dcb67"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/login/page.tsx": {
+    "mtime": 1782644458.9489655,
+    "ast_hash": "91d29db4d3d21e3d84114a37f19cc90d",
+    "semantic_hash": "91d29db4d3d21e3d84114a37f19cc90d"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/app/analytics/page.tsx": {
+    "mtime": 1782637378.3075323,
+    "ast_hash": "4a4075af053d247265bb0b424a3949f0",
+    "semantic_hash": "4a4075af053d247265bb0b424a3949f0"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/providers/theme-provider.tsx": {
+    "mtime": 1782629578.369037,
+    "ast_hash": "9d6e14906eddeb53532cdcfe985fc83e",
+    "semantic_hash": "9d6e14906eddeb53532cdcfe985fc83e"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/providers/index.tsx": {
+    "mtime": 1782637152.3317122,
+    "ast_hash": "5a2aea1b56e25b365499964f75942143",
+    "semantic_hash": "5a2aea1b56e25b365499964f75942143"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/error-boundary.tsx": {
+    "mtime": 1782637455.574888,
+    "ast_hash": "c1d6defdbdf92bc099dbe78b5c1ad05a",
+    "semantic_hash": "c1d6defdbdf92bc099dbe78b5c1ad05a"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/tabs.tsx": {
+    "mtime": 1782628984.4080062,
+    "ast_hash": "9b040906b55d7902f93ca3f2e842ef9b",
+    "semantic_hash": "9b040906b55d7902f93ca3f2e842ef9b"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/card.tsx": {
+    "mtime": 1782628948.1535811,
+    "ast_hash": "ec180eeed31bb9883768e9d1e22e447d",
+    "semantic_hash": "ec180eeed31bb9883768e9d1e22e447d"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/progress.tsx": {
+    "mtime": 1782628996.8525527,
+    "ast_hash": "799c5ee48af6beae4c54a135de725ef8",
+    "semantic_hash": "799c5ee48af6beae4c54a135de725ef8"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/toaster.tsx": {
+    "mtime": 1782629020.5977542,
+    "ast_hash": "3466333b9619eec18db433d7462429ec",
+    "semantic_hash": "3466333b9619eec18db433d7462429ec"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/label.tsx": {
+    "mtime": 1782628956.4156308,
+    "ast_hash": "e743cbf50fb800da4bdb03944bff0bb6",
+    "semantic_hash": "e743cbf50fb800da4bdb03944bff0bb6"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/tooltip.tsx": {
+    "mtime": 1782634219.411642,
+    "ast_hash": "b3751bd442922421c5087311cf72949d",
+    "semantic_hash": "b3751bd442922421c5087311cf72949d"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/avatar.tsx": {
+    "mtime": 1782634218.1706052,
+    "ast_hash": "9a44e92d512868dfabcedc90c0abbf67",
+    "semantic_hash": "9a44e92d512868dfabcedc90c0abbf67"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/dialog.tsx": {
+    "mtime": 1782628971.9473567,
+    "ast_hash": "3cc69632c7ff2bbc27439084aa347afc",
+    "semantic_hash": "3cc69632c7ff2bbc27439084aa347afc"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/badge.tsx": {
+    "mtime": 1782628964.3002472,
+    "ast_hash": "f1229c8c69451bec09c836ae951827a1",
+    "semantic_hash": "f1229c8c69451bec09c836ae951827a1"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/separator.tsx": {
+    "mtime": 1782628993.0533926,
+    "ast_hash": "004847880b2bc77c2d817cb1de346e94",
+    "semantic_hash": "004847880b2bc77c2d817cb1de346e94"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/button.tsx": {
+    "mtime": 1782628942.9606483,
+    "ast_hash": "108b0c7c2322a985c3d872df95693773",
+    "semantic_hash": "108b0c7c2322a985c3d872df95693773"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/toast.tsx": {
+    "mtime": 1782629030.6029375,
+    "ast_hash": "a8bdad6cac6702c14ff9efebc21c8016",
+    "semantic_hash": "a8bdad6cac6702c14ff9efebc21c8016"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/dropdown-menu.tsx": {
+    "mtime": 1782628989.0191734,
+    "ast_hash": "00e012fb91ef5c007cc2913633667072",
+    "semantic_hash": "00e012fb91ef5c007cc2913633667072"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/select.tsx": {
+    "mtime": 1782628979.3868747,
+    "ast_hash": "ac34625267deb9a8855b91f64f1fd6b9",
+    "semantic_hash": "ac34625267deb9a8855b91f64f1fd6b9"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/textarea.tsx": {
+    "mtime": 1782628960.2008495,
+    "ast_hash": "66fdf1b4fa8a96c71ee78699ce8394c0",
+    "semantic_hash": "66fdf1b4fa8a96c71ee78699ce8394c0"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/input.tsx": {
+    "mtime": 1782628952.304275,
+    "ast_hash": "8a610266dce4a15b0fb249fd838da58f",
+    "semantic_hash": "8a610266dce4a15b0fb249fd838da58f"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/ui/skeleton.tsx": {
+    "mtime": 1782634215.462395,
+    "ast_hash": "212429acd8ebf9b39aa7b0a9fa9484eb",
+    "semantic_hash": "212429acd8ebf9b39aa7b0a9fa9484eb"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/components/layout/sidebar.tsx": {
+    "mtime": 1782639636.0635707,
+    "ast_hash": "777df889ac207d3fbd634bdf696996f5",
+    "semantic_hash": "777df889ac207d3fbd634bdf696996f5"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-dashboard.ts": {
+    "mtime": 1782637218.0478156,
+    "ast_hash": "0ace95da7bd9c4eb7ef258c42f26ba48",
+    "semantic_hash": "0ace95da7bd9c4eb7ef258c42f26ba48"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-projects.ts": {
+    "mtime": 1782639605.752874,
+    "ast_hash": "834afaa6cd84586d6dbcfd08a17f5f8f",
+    "semantic_hash": "834afaa6cd84586d6dbcfd08a17f5f8f"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-user.ts": {
+    "mtime": 1782637224.4570172,
+    "ast_hash": "21babceb4dee042de148bbe84e0c0a62",
+    "semantic_hash": "21babceb4dee042de148bbe84e0c0a62"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-ideas.ts": {
+    "mtime": 1782639747.6021185,
+    "ast_hash": "d15d6b771dbd19f8ec21d79c2e0b1b43",
+    "semantic_hash": "d15d6b771dbd19f8ec21d79c2e0b1b43"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-series.ts": {
+    "mtime": 1782639621.8150196,
+    "ast_hash": "ffe2700a4c7817cfdb6ead2c133235dc",
+    "semantic_hash": "ffe2700a4c7817cfdb6ead2c133235dc"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-settings.ts": {
+    "mtime": 1782637238.5499423,
+    "ast_hash": "6e0cf5021587c65ff9700aa6f4308d1b",
+    "semantic_hash": "6e0cf5021587c65ff9700aa6f4308d1b"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-toast.ts": {
+    "mtime": 1782629036.9404304,
+    "ast_hash": "f62f519b727c6f92a77c34907b88634a",
+    "semantic_hash": "f62f519b727c6f92a77c34907b88634a"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/hooks/use-posts.ts": {
+    "mtime": 1782637198.983904,
+    "ast_hash": "9006a0f281ea10a7482fcd6af4c8d925",
+    "semantic_hash": "9006a0f281ea10a7482fcd6af4c8d925"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/lib/utils.ts": {
+    "mtime": 1782628872.12649,
+    "ast_hash": "5d19dab12e4d08f926758d705668fb94",
+    "semantic_hash": "5d19dab12e4d08f926758d705668fb94"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/lib/prompts.ts": {
+    "mtime": 1782639814.8946486,
+    "ast_hash": "8f43740edd9b8112235707a3174fd1aa",
+    "semantic_hash": "8f43740edd9b8112235707a3174fd1aa"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/lib/calendar-export.ts": {
+    "mtime": 1782634070.7030447,
+    "ast_hash": "4a04201f374ea4b7408f8d6379dfdc1f",
+    "semantic_hash": "4a04201f374ea4b7408f8d6379dfdc1f"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/lib/ai.ts": {
+    "mtime": 1782637334.3499773,
+    "ast_hash": "8af07489417292eca8eb1da3ab1db975",
+    "semantic_hash": "8af07489417292eca8eb1da3ab1db975"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/lib/supabase/middleware.ts": {
+    "mtime": 1782629574.7644844,
+    "ast_hash": "f9fa21b1f5f61fd01d26b4a13304c3e9",
+    "semantic_hash": "f9fa21b1f5f61fd01d26b4a13304c3e9"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/lib/supabase/client.ts": {
+    "mtime": 1782628884.363999,
+    "ast_hash": "105b9515fd48b5189aa45d271835c75f",
+    "semantic_hash": "105b9515fd48b5189aa45d271835c75f"
+  },
+  "/Users/mapalopenza/busbook-content-machine/src/lib/supabase/server.ts": {
+    "mtime": 1782629570.3277824,
+    "ast_hash": "98f6e07113b73e8ea5ee2d8c7375628f",
+    "semantic_hash": "98f6e07113b73e8ea5ee2d8c7375628f"
+  },
+  "/Users/mapalopenza/busbook-content-machine/README.md": {
+    "mtime": 1782629754.6970725,
+    "ast_hash": "9fbaec694da55a50fa2fe4642538f114",
+    "semantic_hash": "9fbaec694da55a50fa2fe4642538f114"
+  },
+  "/Users/mapalopenza/busbook-content-machine/public/file.svg": {
+    "mtime": 1782628724.8995862,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71"
+  },
+  "/Users/mapalopenza/busbook-content-machine/public/vercel.svg": {
+    "mtime": 1782628724.9084237,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": "c0af2f507b369b085b35ef4bbe3bcf1e"
+  },
+  "/Users/mapalopenza/busbook-content-machine/public/next.svg": {
+    "mtime": 1782628724.9083366,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": "8e061864f388b47f33a1c3780831193e"
+  },
+  "/Users/mapalopenza/busbook-content-machine/public/globe.svg": {
+    "mtime": 1782628724.9078104,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": "2aaafa6a49b6563925fe440891e32717"
+  },
+  "/Users/mapalopenza/busbook-content-machine/public/window.svg": {
+    "mtime": 1782628724.9084258,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": "a2760511c65806022ad20adf74370ff3"
+  }
+}
